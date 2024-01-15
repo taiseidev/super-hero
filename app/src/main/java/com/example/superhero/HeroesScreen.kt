@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -27,19 +29,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.superhero.model.Hero
+import com.example.superhero.model.HeroesRepository
+
 
 @Composable
 fun HeroItem(hero: Hero, modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier.padding(horizontal = 16.dp),
+        modifier = modifier
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 8.dp),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                // 色を修正する
                 .background(Color(0xffe0ebcf))
                 .padding(16.dp)
         ) {
-            Column {
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
                 Text(
                     text = stringResource(id = hero.nameRes),
                     style = MaterialTheme.typography.displaySmall
@@ -49,10 +58,9 @@ fun HeroItem(hero: Hero, modifier: Modifier = Modifier) {
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
-            Spacer(modifier = Modifier.weight(1f))
             Spacer(modifier = Modifier.width(16.dp))
             Image(
-                painter = painterResource(id = R.drawable.android_superhero1),
+                painter = painterResource(id = hero.imageRes),
                 contentDescription = null,
                 modifier = Modifier
                     .size(72.dp)
@@ -66,12 +74,6 @@ fun HeroItem(hero: Hero, modifier: Modifier = Modifier) {
 @Composable
 fun HeroItemPreview() {
     SuperheroesTheme {
-        HeroItem(
-            hero = Hero(
-                nameRes = R.string.hero1,
-                descriptionRes = R.string.description1,
-                imageRes = R.drawable.android_superhero1
-            )
-        )
+        SuperHeroLayout(heros = HeroesRepository.heroes)
     }
 }
