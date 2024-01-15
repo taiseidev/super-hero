@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,6 +33,16 @@ import androidx.compose.ui.unit.dp
 import com.example.superhero.model.Hero
 import com.example.superhero.model.HeroesRepository
 
+@Composable
+fun HeroList(
+    heros: List<Hero>, innerPadding: PaddingValues, modifier: Modifier = Modifier
+) {
+    LazyColumn(contentPadding = innerPadding, modifier = modifier) {
+        items(heros) { hero ->
+            HeroItem(hero = hero)
+        }
+    }
+}
 
 @Composable
 fun HeroItem(hero: Hero, modifier: Modifier = Modifier) {
@@ -44,8 +55,7 @@ fun HeroItem(hero: Hero, modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                // 色を修正する
-                .background(Color(0xffe0ebcf))
+                .background(MaterialTheme.colorScheme.secondaryContainer)
                 .padding(16.dp)
         ) {
             Column(

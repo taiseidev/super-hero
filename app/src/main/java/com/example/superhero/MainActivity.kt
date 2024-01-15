@@ -44,11 +44,7 @@ fun SuperHeroLayout(heros: List<Hero>, modifier: Modifier = Modifier) {
             SuperHeroAppBar()
         },
     ) { it ->
-        LazyColumn(contentPadding = it) {
-            items(heros) { hero ->
-                HeroItem(hero = hero)
-            }
-        }
+        HeroList(heros = heros, innerPadding = it)
     }
 }
 
